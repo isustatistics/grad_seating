@@ -49,21 +49,28 @@ gen_charts <- function(seats) {
   # this maps the inner function to every office in the list
   # the output of this will be a list with a string containing the tikz part of
   # each individual document
+  gen_charts <- function(seats) {
+  offices <- split(seats, seats$office)
+
+  # this maps the inner function to every office in the list
+  # the output of this will be a list with a string containing the tikz part of
+  # each individual document
   office_maps <- Map(function(office) {
 
         # this creates the node for each of the individuals
         indiv_nodes <- apply(office, 1, function(x) {
-            fname <- x$first
-            lname <- x$last
-            seat <- x$seat
+            fname <- x[1]
+            lname <- x[2]
+            seat <- as.integer(x[4])
             # NOTE: this actual condition needs to be changed
-            template <- ifelse(x$office == "officeA", tex_even, tex_odd)
-            sub("replace", paste(fname, "\\\\", lname), template[[seat]])
+            template <- ifelse(x[3] == "officeA", tex_even[[seat]], tex_odd[[seat]])
+            sub("replace", paste(fname, "\\\\", lname), template)
           }
         )
 
         # paste them all together and make the tex file
-        interior  <- Reduce(paste(sep = "\n"), indiv_nodes)
+        interior  <- paste(Reduce(c, indiv_nodes), sep = "\n")
+        interior  <- paste(indiv_nodes, collapse = "\n")
         full_file <- paste(tex_preamble, interior, tex_post, sep = "\n")
 
         list(fname = paste0("../tex/", office$office, "_seatchart.tex"),
@@ -72,5 +79,5 @@ gen_charts <- function(seats) {
     offices
   )
 
-  Map(function(f) cat(f$full_file, file = f$fname), office_maps)
+  Map(function(f) cat(f$content, file = f$fname[1]), office_maps)
 }
