@@ -13,3 +13,8 @@ repository.
 Put code here, but run it from this directory, e.g. in R
 
     source("code/create_fake_data.R")
+
+
+## Jason says...
+- `make compile` runs my code and produces outputs, assuming you have the dependencies.
+- `make clean` removes all output files.
