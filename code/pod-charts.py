@@ -1,8 +1,12 @@
 # Setup
+import pathlib
+
 import pandas as pd
 
-data_path = "data/jdata.csv"
-students = pd.read_csv(data_path)
+data_dir = pathlib.Path("data")
+students = pd.read_csv(data_dir / "jdata.csv")
+layouts = pd.read_csv(data_dir / "layouts.csv")
+df = students.merge(layouts, on="room", how="inner")
 
 # Template loading and image manipulation
 def get_template(layout):
@@ -14,11 +18,9 @@ def get_template(layout):
 
 # Main loop: Iterate over pods and create a chart from the appropriate template for each one
 # If there's less than 5 students in a pod, this will leave filler text in the chart
-for room in students["room"].unique():
-    in_room = students.loc[students["room"] == room]
+for room in df["room"].unique():
+    in_room = df.loc[df["room"] == room]
     chart = get_template(in_room["layout"][0])
-
-    print(in_room)
 
     for student in in_room.itertuples():
         seat = student.seat
