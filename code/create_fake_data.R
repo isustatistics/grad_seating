@@ -1,9 +1,46 @@
 library("tidyverse")
 
+## Rooms with number of seats
+rooms <- tribble(
+  ~building, ~room, ~nseats,
+  "CSSM", 1215, 4,
+  "CSSM", 1219, 5,
+  "CSSM", 1220, 2,
+  "Snedecor", 1411, 3,
+  "Snedecor", 1414, 4, 
+  "Snedecor", 1418, 5,
+  "Snedecor", 2207, 5,
+  "Snedecor", 2211, 5,
+  "Snedecor", 2406, 5,
+  "Snedecor", 2410, 5,
+  "Snedecor", 2215, 5,
+  "Snedecor", 2414, 5,
+  "Snedecor", 2219, 5,
+  "Snedecor", 2418, 5,
+  "Snedecor", 3207, 5,
+  "Snedecor", 3211, 5, 
+  "Snedecor", 3215, 5,
+  "Snedecor", 3219, 5,
+  "Snedecor", 3406, 5,
+  "Snedecor", 3410, 5,
+  "Snedecor", 3414, 5,
+  "Snedecor", 3418, 5,
+  "Snedecor", 3220, 3
+)
 
-d <- data.frame(first = paste0("first", LETTERS[1:10]),
-                last  = paste0("last",  LETTERS[1:10]),
-                office = rep(paste0("office", LETTERS[1:2]), each = 5),
-                seat = 1:5)
+create_room <- function(d) {
+  data.frame(
+    building = d$building,
+    room = d$room,
+    seat = 1:d$nseats
+  )
+}
 
-write_csv(d, file = "data/fake_data.csv")
+seating <- rooms %>%
+  group_by(building, room) %>%
+  do(create_room(.)) %>%
+  ungroup() %>%
+  mutate(first = paste0("first", 1:n()),
+         last = paste0("last", 1:n()))
+
+write_csv(seating, file = "data/fake_data.csv")
