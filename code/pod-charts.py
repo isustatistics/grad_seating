@@ -7,8 +7,8 @@ layouts = pd.read_csv("data/layouts.csv")
 # Template loading and image manipulation
 def get_template(layout):
     if layout == 0:
-        # Too lazy to create template right now
-        return "".join([f"first{n} last{n} " for n in range(1, 6)])
+        with open("templates/pod-3-2.svg", "r") as f:
+            return f.read()
     else:
         with open("templates/pod-2-3.svg", "r") as f:
             return f.read()
