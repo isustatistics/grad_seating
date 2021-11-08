@@ -43,13 +43,6 @@ dat <- read.csv("../data/fake_data.csv")
 # function to generate the seating chart
 # input is a df from read.csv (the seating chart)
 gen_charts <- function(seats) {
-
-  offices <- split(seats, seats$office)
-
-  # this maps the inner function to every office in the list
-  # the output of this will be a list with a string containing the tikz part of
-  # each individual document
-  gen_charts <- function(seats) {
   offices <- split(seats, seats$office)
 
   # this maps the inner function to every office in the list
