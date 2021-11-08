@@ -39,11 +39,16 @@ tex_odd <- list(
 
 
 dat <- read.csv("../data/fake_data.csv")
+lay <- read.csv("../data/layouts.csv")
+
+# TODO (josh 11/8): not exactly sure what is going on with CSSM rooms figure
+# that out maybe
+chart_layouts <- dplyr::inner_join(dat, lay, by = "room")
 
 # function to generate the seating chart
 # input is a df from read.csv (the seating chart)
 gen_charts <- function(seats) {
-  offices <- split(seats, seats$office)
+  offices <- split(seats, seats$room)
 
   # this maps the inner function to every office in the list
   # the output of this will be a list with a string containing the tikz part of
@@ -52,12 +57,12 @@ gen_charts <- function(seats) {
 
         # this creates the node for each of the individuals
         indiv_nodes <- apply(office, 1, function(x) {
-            fname <- x[1]
-            lname <- x[2]
-            seat <- as.integer(x[4])
-            #TODO:(josh 11/8) needs to be updated for correct logic
-            template <- ifelse(x[3] == "officeA", tex_even[[seat]], tex_odd[[seat]])
-            sub("replace", paste(fname, "\\\\", lname), template)
+            fname <- x[4]
+            lname <- x[5]
+            seat <- as.integer(x[3])
+            # do not ask why you need to check equality here
+            template <- ifelse(x[6] == 1, tex_odd[[seat]], tex_even[[seat]])
+            return(sub("replace", paste(fname, "\\\\", lname), template))
           }
         )
 
@@ -66,7 +71,7 @@ gen_charts <- function(seats) {
         interior  <- paste(indiv_nodes, collapse = "\n")
         full_file <- paste(tex_preamble, interior, tex_post, sep = "\n")
 
-        list(fname = paste0("../tex/", office$office, "_seatchart.tex"),
+        list(fname = paste0("../tex/", office$building, office$room, "_seatchart.tex"),
              content = full_file)
     },
     offices
@@ -74,3 +79,5 @@ gen_charts <- function(seats) {
 
   Map(function(f) cat(f$content, file = f$fname[1]), office_maps)
 }
+
+gen_charts(chart_layouts)
