@@ -55,7 +55,7 @@ gen_charts <- function(seats) {
             fname <- x[1]
             lname <- x[2]
             seat <- as.integer(x[4])
-            # NOTE: this actual condition needs to be changed
+            #TODO:(josh 11/8) needs to be updated for correct logic
             template <- ifelse(x[3] == "officeA", tex_even[[seat]], tex_odd[[seat]])
             sub("replace", paste(fname, "\\\\", lname), template)
           }
