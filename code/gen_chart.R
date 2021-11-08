@@ -62,7 +62,7 @@ gen_charts <- function(seats) {
             seat <- as.integer(x[3])
             # do not ask why you need to check equality here
             template <- ifelse(x[6] == 1, tex_odd[[seat]], tex_even[[seat]])
-            return(sub("replace", paste(fname, "\\\\", lname), template))
+            return(sub("replace", paste(fname, "\\\\\\\\", lname), template))
           }
         )
 
