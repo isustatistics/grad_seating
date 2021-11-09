@@ -41,6 +41,7 @@ seating <- rooms %>%
   do(create_room(.)) %>%
   ungroup() %>%
   mutate(first = paste0("first", 1:n()),
-         last = paste0("last", 1:n()))
+         last = paste0("last", 1:n()),
+         nickname = paste0("nick", 1:n()))
 
 write_csv(seating, file = "data/fake_data.csv")
