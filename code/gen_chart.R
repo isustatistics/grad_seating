@@ -81,3 +81,13 @@ gen_charts <- function(seats) {
 }
 
 gen_charts(chart_layouts)
+
+# Create pdfs
+setwd("../tex")
+tex_files <- list.files(pattern = "\\.tex")
+for (file in tex_files)
+  system(paste("pdflatex", file))
+
+pdf_files <- setdiff(list.files(pattern = "\\.pdf"), "seatingcharts.pdf")
+qpdf::pdf_combine(input = pdf_files, output = "seatingcharts.pdf")
+
