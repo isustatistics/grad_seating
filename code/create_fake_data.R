@@ -40,8 +40,8 @@ seating <- rooms %>%
   group_by(building, room) %>%
   do(create_room(.)) %>%
   ungroup() %>%
-  mutate(first = paste0("first", 1:n()),
-         last = paste0("last", 1:n()),
+  mutate(first = paste0(building,room),
+         last = paste0(seat),
          nickname = paste0("nick", 1:n()))
 
-write_csv(seating, file = "data/fake_data.csv")
+write_csv(seating, file = "../data/fake_data.csv")
