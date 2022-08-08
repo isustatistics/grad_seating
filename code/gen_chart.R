@@ -1,3 +1,6 @@
+library("dplyr")
+library("qpdf")
+
 tex_preamble <- "\\documentclass[11pt]{article}
 \\usepackage{tikz}
 \\usetikzlibrary{positioning}
