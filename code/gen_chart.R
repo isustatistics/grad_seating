@@ -43,7 +43,8 @@ tex_odd <- list(
 )
 
 
-dat <- read.csv("../data/fake_data.csv")
+# dat <- read.csv("../data/fake_data.csv")
+dat <- read.csv("../data/seatdata.csv")
 lay <- read.csv("../data/layouts.csv")
 
 # TODO (josh 11/8): not exactly sure what is going on with CSSM rooms figure
@@ -69,7 +70,9 @@ gen_charts <- function(seats) {
             seat <- as.integer(x[3])
             # do not ask why you need to check equality here
             template <- ifelse(lay == 1, tex_odd[[seat]], tex_even[[seat]])
-            return(sub("replace", paste0(fname, " \`\`", nname, "\"", "\\\\\\\\", lname), template))
+            # return(sub("replace", paste0(fname, " \`\`", nname, "\"", "\\\\\\\\", lname), template))
+            # without nickname
+            return(sub("replace", paste0(fname, "\\\\\\\\", lname), template))
           }
         )
 

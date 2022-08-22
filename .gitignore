@@ -41,3 +41,6 @@ vignettes/*.pdf
 
 # tex/pdf files
 tex/
+
+# hide actual student names
+data/seatdata.csv
