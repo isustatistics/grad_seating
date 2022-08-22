@@ -1,14 +1,17 @@
 library("dplyr")
 library("qpdf")
 
-tex_preamble <- "\\documentclass[11pt]{article}
+tex_preamble <- "\\documentclass[24pt]{article}
 \\usepackage{tikz}
 \\usetikzlibrary{positioning}
+\\usepackage[sfdefault]{cabin}
+\\usepackage[T1]{fontenc}
+\\usepackage[fontsize=16pt]{fontsize}
 
 \\tikzstyle{seat} = [rectangle,
                     rounded corners,
-                    minimum width=3cm,
-                    minimum height=2cm,
+                    minimum width=4cm,
+                    minimum height=3cm,
                     text centered,
                     % node distance=3cm and 1cm,
                     fill=cyan!25,
@@ -18,7 +21,7 @@ tex_preamble <- "\\documentclass[11pt]{article}
 
 \\begin{figure}[h]
    \\centering
-   \\begin{tikzpicture}[node distance=2cm]"
+   \\begin{tikzpicture}[node distance=1cm]"
 
 tex_post <- "\\end{tikzpicture}
 \\end{figure}
