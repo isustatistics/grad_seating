@@ -6,18 +6,19 @@ tex_preamble <- "\\documentclass[24pt]{article}
 \\usetikzlibrary{positioning}
 \\usepackage[sfdefault]{cabin}
 \\usepackage[T1]{fontenc}
-\\usepackage[fontsize=16pt]{fontsize}
+\\usepackage[fontsize=18pt]{fontsize}
 
 \\tikzstyle{seat} = [rectangle,
                     rounded corners,
-                    minimum width=4cm,
-                    minimum height=3cm,
+                    minimum width=5.5cm,
+                    minimum height=4cm,
                     text centered,
                     % node distance=3cm and 1cm,
                     fill=cyan!25,
                     draw=black]
 
 \\begin{document}
+\\vspace{2mm}
 
 \\begin{figure}[h]
    \\centering
