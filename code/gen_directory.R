@@ -28,13 +28,12 @@ tex_post <- "\\end{tabularx}
 # =============================================================================
 # read and arrange seating chart data for latex table
 # =============================================================================
-seats <- read_csv("../data/seatdata.csv")
+seats <- read_csv("../data/fake_data.csv")
 
 seats <- seats |>
   select(room, first, last) |>
   filter(!is.na(first) & !is.na(last)) |>
-  mutate(floor = room %/% 1000, side = room %% 2) |>
-  mutate(dir = paste(floor, side))
+  mutate(dir = floor(room/100)) 
 
 seats_spl <- split(seats, f = seats$dir) |>
   map(
@@ -58,7 +57,7 @@ seats_spl |>
         namestr <- c(namestr, paste(side$name[i], side$room[i], sep = " \\dotfill "))
 
       f <- paste(tex_preamble, paste(namestr, collapse = "\\\\\n"), tex_post, sep = "\n")
-      cat(f, file = paste0("../tex/", side$room[1], "_dir.tex"))
+      cat(f, file = paste0("../tex/", floor(side$room[1]/100), "_dir.tex"))
     }
   )
 
