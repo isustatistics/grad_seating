@@ -44,3 +44,5 @@ tex/
 
 # hide actual student names
 data/seatdata.csv
+
+.DS_Store
