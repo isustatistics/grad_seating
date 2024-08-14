@@ -22,3 +22,8 @@ This file contains information about different room layouts:
 - room: room number
 - layout: 0 for pods with 3 seats on the left and 2 on the right (from the entrance), 1 for pods with 2 seats on the left and 3 on the right
 - aisle: 0 for pods on the west side of Snedecor, 1 for those on the east side
+
+
+## seatdata.csv
+
+Use this name for actual seating data as it is included in .gitignore.

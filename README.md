@@ -12,7 +12,10 @@ repository.
 
 Put code here, but run it from this directory, e.g. in R
 
-    source("code/create_fake_data.R")
+    source("code/create_charts.R")
+    
+This will produce `tex/seatingcharts.pdf`.
+
 
 
 ## Jason says...
